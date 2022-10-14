@@ -13,7 +13,7 @@ def get_user(db: Session, email: str):
     
 def create_property(db: Session, title: str, direction: str, province: str, country: str, price: int, user_id: int):
     db_property = models.Property(title=title, direction=direction, province=province, country=country, price=price, user_id=user_id)
-    #db.add(db_property) => Rompe
-    #db.commit() 
-    #db.refresh(db_property)
+    db.add(db_property)
+    db.commit() 
+    db.refresh(db_property)
     return db_property
