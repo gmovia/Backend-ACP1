@@ -11,9 +11,19 @@ def create_user(db: Session, email: str, password: str):
 def get_user(db: Session, email: str):
     return db.query(models.User).filter(models.User.email == email).first()
     
-def create_property(db: Session, title: str, direction: str, province: str, country: str, price: int, user_id: int):
-    db_property = models.Property(title=title, direction=direction, province=province, country=country, price=price, user_id=user_id)
+def create_property(db: Session, direction: str, province: str, location: str, country: str, toilets: int, rooms: int, people: int, description: str, user_id: int):
+    db_property = models.Property(
+                                    direction=direction, 
+                                    province=province, 
+                                    location=location, 
+                                    country=country, 
+                                    toilets=toilets, 
+                                    rooms=rooms,
+                                    people=people, 
+                                    description=description, 
+                                    user_id=user_id)
     db.add(db_property)
     db.commit() 
     db.refresh(db_property)
     return db_property
+

@@ -8,11 +8,14 @@ class UserLogin(BaseModel):
         orm_mode = True
 
 class PropertySchema(BaseModel): 
-    title: str
     direction: str
     province: str
+    location: str
     country: str
-    price: int
+    toilets: int
+    rooms: int
+    people: int
+    description: str
     email_user: str
     
     class Config:
