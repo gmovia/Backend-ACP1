@@ -13,25 +13,34 @@ def create_property(propertySchema: schemas.PropertySchema, db: Session = Depend
    if db_user is None:
         raise HTTPException(status_code=400, detail="Permission denied.")
 
-   db_property = crud.create_property(
-                                        db, 
-                                        propertySchema.direction, 
-                                        propertySchema.province, 
-                                        propertySchema.location, 
-                                        propertySchema.country,
-                                        propertySchema.toilets, 
-                                        propertySchema.rooms,
-                                        propertySchema.people,
-                                        propertySchema.description,
-                                        db_user.id
-                                     )
+   db_property = crud.create_property(db, propertySchema, db_user.id)
+
    return db_property
 
 @propertyHandler.post('/deleteProperty/')
-def delete_property(property_id: int, db: Session = Depends(access.get_db)):
-   db_property = crud.delete_property(db, property_id)
+def delete_property(property_id: int, email_user: str, db: Session = Depends(access.get_db)):
+   db_user = crud.get_user(db, email_user)
+
+   if db_user is None:
+      raise HTTPException(status_code=400, detail="Permission denied.")
+
+   db_property = crud.delete_property(db, property_id, db_user.id)
 
    if db_property is None:
-      raise HTTPException(status_code=404, detail="Property not found")
+      raise HTTPException(status_code=400, detail="Permission denied.")
+   
+   return db_property
+
+@propertyHandler.post('/updateProperty/')
+def update_property(property_id: int, propertySchema: schemas.PropertySchema, db: Session = Depends(access.get_db)):
+   db_user = crud.get_user(db, propertySchema.email_user)
+
+   if db_user is None:
+      raise HTTPException(status_code=400, detail="Permission denied.")
+
+   db_property = crud.update_property(db, property_id, db_user.id, propertySchema)
+
+   if db_property is None:
+      raise HTTPException(status_code=400, detail="Permission denied.")
    
    return db_property
