@@ -26,3 +26,12 @@ def create_property(propertySchema: schemas.PropertySchema, db: Session = Depend
                                         db_user.id
                                      )
    return db_property
+
+@propertyHandler.post('/deleteProperty/')
+def delete_property(property_id: int, db: Session = Depends(access.get_db)):
+   db_property = crud.delete_property(db, property_id)
+
+   if db_property is None:
+      raise HTTPException(status_code=404, detail="Property not found")
+   
+   return db_property

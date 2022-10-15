@@ -10,7 +10,10 @@ def create_user(db: Session, email: str, password: str):
 
 def get_user(db: Session, email: str):
     return db.query(models.User).filter(models.User.email == email).first()
-    
+
+def get_property(db: Session, property_id: int):
+    return db.query(models.Property).filter(models.Property.id == property_id).first()
+
 def create_property(db: Session, direction: str, province: str, location: str, country: str, toilets: int, rooms: int, people: int, description: str, user_id: int):
     db_property = models.Property(
                                     direction=direction, 
@@ -27,3 +30,9 @@ def create_property(db: Session, direction: str, province: str, location: str, c
     db.refresh(db_property)
     return db_property
 
+def delete_property(db: Session, property_id: int):
+    db_property = get_property(db, property_id)
+    if db_property is not None:
+        db.delete(db_property)
+        db.commit()
+    return db_property
