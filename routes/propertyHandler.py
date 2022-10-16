@@ -44,3 +44,12 @@ def update_property(property_id: int, propertySchema: schemas.PropertySchema, db
       raise HTTPException(status_code=400, detail="Permission denied.")
    
    return db_property
+
+@propertyHandler.post('/fetchAllUserProperties/')
+def fetch_all_user_properties(email_user: str, db: Session = Depends(access.get_db)):
+   db_user = crud.get_user(db, email_user)
+
+   if db_user is None:
+      raise HTTPException(status_code=400, detail="User not exist.")
+
+   return crud.get_properties_by_user_id(db, db_user.id)

@@ -15,6 +15,9 @@ def get_user(db: Session, email: str):
 def get_property(db: Session, property_id: int):
     return db.query(models.Property).filter(models.Property.id == property_id).first()
 
+def get_properties_by_user_id(db: Session, user_id: int):
+    return db.query(models.Property).filter(models.Property.user_id == user_id).all()
+
 def create_property(db: Session, propertySchema: schemas.PropertySchema, user_id: int):
     db_property = models.Property(
                                     direction=propertySchema.direction, 
