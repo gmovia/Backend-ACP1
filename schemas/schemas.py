@@ -24,8 +24,8 @@ class PropertySchema(BaseModel):
 class PublicationSchema(BaseModel):
     title: str
     price: int
-    property_id: id
+    property_id: int
     email_user: str
-
+    
     class Config:
         orm_mode = True
