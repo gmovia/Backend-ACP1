@@ -20,3 +20,12 @@ class PropertySchema(BaseModel):
     
     class Config:
         orm_mode = True
+    
+class PublicationSchema(BaseModel):
+    title: str
+    price: int
+    property_id: id
+    email_user: str
+
+    class Config:
+        orm_mode = True
