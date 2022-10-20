@@ -25,3 +25,13 @@ class Property(Base):
     description = Column(String)
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="propertys")
+    publication = relationship("Publication", back_populates="property_", uselist=False)
+
+class Publication(Base):
+    __tablename__ = 'publications'
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String)
+    price = Column(Integer)
+    property_id = Column(Integer, ForeignKey("propertys.id"))
+    property_ = relationship("Property", back_populates="publication")
