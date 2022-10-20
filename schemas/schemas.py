@@ -16,6 +16,7 @@ class PropertySchema(BaseModel):
     rooms: int
     people: int
     description: str
+    link: str
     email_user: str
     
     class Config:

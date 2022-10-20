@@ -23,6 +23,7 @@ class Property(Base):
     rooms = Column(Integer)
     people = Column(Integer)
     description = Column(String)
+    link = Column(String)
     user_id = Column(Integer, ForeignKey("users.id"))
     user = relationship("User", back_populates="propertys")
     publication = relationship("Publication", back_populates="property_", uselist=False)

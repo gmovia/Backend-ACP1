@@ -28,6 +28,7 @@ def create_property(db: Session, propertySchema: schemas.PropertySchema, user_id
                                     rooms=propertySchema.rooms,
                                     people=propertySchema.people, 
                                     description=propertySchema.description, 
+                                    link=propertySchema.link,
                                     user_id=user_id
                                  )
     db.add(db_property)
@@ -58,7 +59,8 @@ def update_property(db: Session, property_id: int, user_id: int, propertySchema:
     db_property.toilets = propertySchema.toilets 
     db_property.rooms = propertySchema.rooms
     db_property.people = propertySchema.people 
-    db_property.description = propertySchema.description 
+    db_property.description = propertySchema.description
+    db_property.link = propertySchema.link 
                                  
     db.add(db_property)
     db.commit()
