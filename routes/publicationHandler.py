@@ -1,7 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from schemas import schemas
 from sqlalchemy.orm import Session
-from config import crud
 from routes import access
 
 publicationHandler = APIRouter()

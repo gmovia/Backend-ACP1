@@ -33,6 +33,17 @@ class Publication(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     title = Column(String)
-    price = Column(Integer)
+    description = Column(String)
     property_id = Column(Integer, ForeignKey("propertys.id"))
     property_ = relationship("Property", back_populates="publication")
+    price = relationship("Price", back_populates="publication")
+
+class Price(Base):
+    __tablename__ = "prices"
+
+    id = Column(Integer, primary_key=True, index=True)
+    start_date = Column(String)
+    end_date = Column(String)
+    price_per_day = Column(Integer)
+    publication_id = Column(Integer, ForeignKey("publications.id"))
+    publication = relationship("Publication", back_populates="price")
