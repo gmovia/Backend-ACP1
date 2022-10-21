@@ -36,22 +36,12 @@ def create_property(db: Session, propertySchema: schemas.PropertySchema, user_id
     db.refresh(db_property)
     return db_property
 
-def delete_property(db: Session, property_id: int, user_id: int):
-    db_property = get_property(db, property_id)
-    
-    if (db_property is None) or (db_property.user_id != user_id):
-        return None
-    
+def delete_property(db: Session, db_property):
     db.delete(db_property)
     db.commit()
     return db_property
 
-def update_property(db: Session, property_id: int, user_id: int, propertySchema: schemas.PropertySchema):
-    db_property = get_property(db, property_id)
-    
-    if (db_property is None) or (db_property.user_id != user_id):
-        return None
-    
+def update_property(db: Session, db_property, propertySchema: schemas.PropertySchema):
     db_property.direction = propertySchema.direction
     db_property.province = propertySchema.province 
     db_property.location = propertySchema.location 
@@ -60,8 +50,7 @@ def update_property(db: Session, property_id: int, user_id: int, propertySchema:
     db_property.rooms = propertySchema.rooms
     db_property.people = propertySchema.people 
     db_property.description = propertySchema.description
-    db_property.link = propertySchema.link 
-                                 
+    #db_property.link = propertySchema.link                              
     db.add(db_property)
     db.commit()
     return db_property
