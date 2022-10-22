@@ -13,4 +13,10 @@ publication = APIRouter()
 def create_publication(publicationSchema: PublicationSchema, db: Session = Depends(get_db)):
     return publicationController.create(publicationSchema, db)
 
+@publication.put('/updatePublication/')
+def update_publication(publication_id: int, publicationSchema: PublicationSchema, db: Session = Depends(get_db)):
+    return 0
 
+@publication.delete('/deletePublication/')
+def delete_publication(publication_id: int, email_user: str, db: Session = Depends(get_db)):
+    return publicationController.delete(publication_id, email_user, db)
