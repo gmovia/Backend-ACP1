@@ -3,3 +3,4 @@ __pycache__
 info/doc.txt
 .env
 .idea
+sql_app.db

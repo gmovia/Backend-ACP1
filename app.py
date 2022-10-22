@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from routes.access import access
-from routes.propertyHandler import propertyHandler
-from routes.publicationHandler import publicationHandler
+from routes.property import propertie
+from routes.publication import publication
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -25,5 +25,5 @@ app.add_middleware(
 )
 
 app.include_router(access)    
-app.include_router(propertyHandler)
-app.include_router(publicationHandler)
+app.include_router(propertie)
+app.include_router(publication)
