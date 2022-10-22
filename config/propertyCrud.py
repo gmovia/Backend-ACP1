@@ -1,26 +1,26 @@
 from sqlalchemy.orm import Session
-from models import models
 from schemas.propertySchema import PropertySchema
+from models.propertie import Property
 
 def get_property(db: Session, property_id: int):
-    return db.query(models.Property).filter(models.Property.id == property_id).first()
+    return db.query(Property).filter(Property.id == property_id).first()
 
 def get_properties_by_user_id(db: Session, user_id: int):
-    return db.query(models.Property).filter(models.Property.user_id == user_id).all()
+    return db.query(Property).filter(Property.user_id == user_id).all()
 
 def create_property(db: Session, propertySchema: PropertySchema, user_id: int):
-    db_property = models.Property(
-                                    direction=propertySchema.direction, 
-                                    province=propertySchema.province, 
-                                    location=propertySchema.location, 
-                                    country=propertySchema.country, 
-                                    toilets=propertySchema.toilets, 
-                                    rooms=propertySchema.rooms,
-                                    people=propertySchema.people, 
-                                    description=propertySchema.description, 
-                                    link=propertySchema.link,
-                                    user_id=user_id
-                                )
+    db_property = Property(
+                            direction=propertySchema.direction, 
+                            province=propertySchema.province, 
+                            location=propertySchema.location, 
+                            country=propertySchema.country, 
+                            toilets=propertySchema.toilets, 
+                            rooms=propertySchema.rooms,
+                            people=propertySchema.people, 
+                            description=propertySchema.description, 
+                            link=propertySchema.link,
+                            user_id=user_id
+                        )
     db.add(db_property)
     db.commit() 
     db.refresh(db_property)
