@@ -10,3 +10,10 @@ def create_user(db: Session, email: str, password: str):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+def update_user(db: Session, db_user: User, new_attributes: dict()):
+    for attr, value in new_attributes.items():
+        setattr(db_user, attr, value)
+    db.commit()
+    db.refresh(db_user)
+    return db_user

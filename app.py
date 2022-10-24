@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from routes.access import access
 from routes.property import propertie
 from routes.publication import publication
+from routes.user import user
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -27,3 +28,4 @@ app.add_middleware(
 app.include_router(access)    
 app.include_router(propertie)
 app.include_router(publication)
+app.include_router(user)
