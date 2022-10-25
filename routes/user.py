@@ -13,6 +13,6 @@ def update_profile(profileSchema: UserProfile,
     return userController.update_profile(profileSchema, db)
 
 
-@user.get('/getProfile/', status_code=200)
+@user.get('/getProfile/', status_code=200, response_model=UserProfile)
 def get_profile(user_email: str, db: Session = Depends(access.get_db)):
     return userController.get_profile(user_email, db)

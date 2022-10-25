@@ -25,9 +25,4 @@ def get_profile(user_email: str, db: Session):
     if db_user is None:
         raise HTTPException(status_code=400, detail="Permission denied.")
 
-    return {
-        "email": db_user.email,
-        "bio": db_user.bio,
-        "location": db_user.location,
-        "ocupation": db_user.ocupation
-    }
+    return db_user
