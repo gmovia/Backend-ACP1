@@ -1,7 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from routes import access
-from pydantic import EmailStr
 from schemas.userProfile import UserProfile
 from controller import userController
 
@@ -15,5 +14,5 @@ def update_profile(profileSchema: UserProfile,
 
 
 @user.get('/getProfile/', status_code=200)
-def get_profile(user_email: EmailStr, db: Session = Depends(access.get_db)):
+def get_profile(user_email: str, db: Session = Depends(access.get_db)):
     return userController.get_profile(user_email, db)
