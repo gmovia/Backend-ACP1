@@ -14,3 +14,4 @@ class User(Base):
     bio = Column(String)
     ocupation = Column(String)
     location = Column(String)
+    pic = Column(String)
