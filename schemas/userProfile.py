@@ -1,8 +1,8 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel
 from typing import Optional
 
 class UserProfile(BaseModel):
-    email: EmailStr
+    email: str
     name: Optional[str]
     bio: Optional[str]
     ocupation: Optional[str]
