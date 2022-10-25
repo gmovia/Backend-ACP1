@@ -7,7 +7,7 @@ class UserProfile(BaseModel):
     bio: Optional[str]
     ocupation: Optional[str]
     location: Optional[str]
-    pic: str
+    pic: Optional[str]
 
     class Config:
         orm_mode = True
