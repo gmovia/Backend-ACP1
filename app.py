@@ -3,6 +3,7 @@ from routes.access import access
 from routes.property import propertie
 from routes.publication import publication
 from routes.user import user
+from routes.image import image
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -29,3 +30,4 @@ app.include_router(access)
 app.include_router(propertie)
 app.include_router(publication)
 app.include_router(user)
+app.include_router(image)
