@@ -11,5 +11,5 @@ class Reservation(Base):
     start_date = Column(Date)
     end_date = Column(Date)
     price = Column(Integer)
-    publication = relationship("Publication", back_populates="reservation")
-    user = relationship("User", back_populates="reservation")
+    publication = relationship("Publication", back_populates="reservations")
+    user = relationship("User", back_populates="reservations")
