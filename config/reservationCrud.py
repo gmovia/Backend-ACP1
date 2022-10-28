@@ -16,10 +16,10 @@ def create_reservation(user_id: int, price_per_day: int, reservationSchema: Rese
     db.refresh(db_reservation)
     return db_reservation
 
-def is_the_property_reserved(start_date: datetime, end_date: datetime, db: Session):
+def is_the_property_reserved(publication_id: int, start_date: datetime, end_date: datetime, db: Session):
     days_list = [(start_date + timedelta(days=d)).strftime("%Y-%m-%d") for d in range((end_date - start_date).days + 1)] 
     for i in days_list:
-        is_reserved = db.query(Reservation).filter(Reservation.start_date <= i).filter(i <= Reservation.end_date).first()
+        is_reserved = db.query(Reservation).filter(Reservation.publication_id == publication_id).filter(Reservation.start_date <= i).filter(i <= Reservation.end_date).first()
         if is_reserved is not None:
             return True
     return False

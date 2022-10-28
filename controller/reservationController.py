@@ -16,7 +16,7 @@ def reserve(reservationSchema: ReservationSchema, db: Session):
     if db_publication is None:
        raise HTTPException(status_code=400, detail="Permission denied.")
 
-    if is_the_property_reserved(reservationSchema.start_date, reservationSchema.end_date, db) is True:
+    if is_the_property_reserved(db_publication.id, reservationSchema.start_date, reservationSchema.end_date, db) is True:
         raise HTTPException(status_code=400, detail="The property is reserved.")
 
     return create_reservation(db_user.id, db_publication.price, reservationSchema, db)
