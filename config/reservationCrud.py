@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from schemas.reservationSchema import ReservationSchema
 from models.reservation import Reservation
-from datetime import datetime
+from datetime import datetime, timedelta
 
 def create_reservation(user_id: int, price_per_day: int, reservationSchema: ReservationSchema, db: Session):
     db_reservation = Reservation(
@@ -17,5 +17,9 @@ def create_reservation(user_id: int, price_per_day: int, reservationSchema: Rese
     return db_reservation
 
 def is_the_property_reserved(start_date: datetime, end_date: datetime, db: Session):
-    #Implementar algoritmo que, dado un rango de fechas, diga si esta reservada la propiedad 
-    return 0
+    days_list = [(start_date + timedelta(days=d)).strftime("%Y-%m-%d") for d in range((end_date - start_date).days + 1)] 
+    for i in days_list:
+        is_reserved = db.query(Reservation).filter(Reservation.start_date <= i).filter(i <= Reservation.end_date).first()
+        if is_reserved is not None:
+            return True
+    return False
