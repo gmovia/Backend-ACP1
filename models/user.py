@@ -10,6 +10,7 @@ class User(Base):
     email = Column(String, unique=True, index=True)
     password = Column(String)
     propertys = relationship("Property", back_populates="user")
+    reservations = relationship("Reserve", back_populates="user")
     name = Column(String)
     bio = Column(String)
     ocupation = Column(String)
