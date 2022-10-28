@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, ForeignKey, Date
 from sqlalchemy.orm import relationship
 from config.db import Base
 
-class Reserve(Base):
+class Reservation(Base):
     __tablename__ = 'reservations'
 
     id = Column(Integer, primary_key=True, index=True)
@@ -11,5 +11,5 @@ class Reserve(Base):
     start_date = Column(Date)
     end_date = Column(Date)
     price = Column(Integer)
-    publication = relationship("Publication", back_populates="reserve")
-    user = relationship("User", back_populates="reserve")
+    publication = relationship("Publication", back_populates="reservation")
+    user = relationship("User", back_populates="reservation")

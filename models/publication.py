@@ -11,4 +11,4 @@ class Publication(Base):
     price = Column(Integer)
     property_id = Column(Integer, ForeignKey("propertys.id"))
     property_ = relationship("Property", back_populates="publication")
-    reserve = relationship("Reserve", back_populates="publication")
+    reservation = relationship("Reservation", back_populates="publication")
