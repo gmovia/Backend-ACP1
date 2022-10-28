@@ -9,18 +9,18 @@ publication.Base.metadata.create_all(bind=engine)
 
 publication = APIRouter()
 
-@publication.post('/createPublication/')
+@publication.post('/createPublication/', status_code=200)
 def create_publication(publicationSchema: PublicationSchema, db: Session = Depends(get_db)):
     return publicationController.create(publicationSchema, db)
 
-@publication.put('/updatePublication/')
+@publication.put('/updatePublication/', status_code=200)
 def update_publication(publication_id: int, publicationSchema: PublicationSchema, db: Session = Depends(get_db)):
     return publicationController.update(publication_id, publicationSchema, db)
 
-@publication.delete('/deletePublication/')
+@publication.delete('/deletePublication/', status_code=200)
 def delete_publication(publication_id: int, email_user: str, db: Session = Depends(get_db)):
     return publicationController.delete(publication_id, email_user, db)
 
-@publication.post('/fetchAllUserPublications/')
+@publication.post('/fetchAllUserPublications/', status_code=200)
 def fetch_all_user_publications(email_user: str, db: Session = Depends(get_db)):
     return publicationController.fetch_by_user(email_user, db)

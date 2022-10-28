@@ -3,7 +3,6 @@ from schemas.userProfile import UserProfile
 from config import userCrud
 from sqlalchemy.orm import Session
 
-
 def update_profile(profileSchema: UserProfile, db: Session):
     db_user = userCrud.get_user(db, profileSchema.email)
 

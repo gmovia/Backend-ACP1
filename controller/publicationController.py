@@ -5,7 +5,6 @@ from config.propertyCrud import *
 from config.publicationCrud import *
 from sqlalchemy.orm import Session
 
-
 def create(publicationSchema: PublicationSchema, db: Session):
     db_user = get_user(db, publicationSchema.email_user)
     
