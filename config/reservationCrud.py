@@ -3,6 +3,9 @@ from schemas.reservationSchema import ReservationSchema
 from models.reservation import Reservation
 from datetime import datetime, timedelta
 
+def get_reservation(reservation_id: int, db: Session):
+    return db.query(Reservation).filter(Reservation.id == reservation_id).first()
+
 def create_reservation(user_id: int, price_per_day: int, reservationSchema: ReservationSchema, db: Session):
     db_reservation = Reservation(
                                     start_date=reservationSchema.start_date,
@@ -14,6 +17,11 @@ def create_reservation(user_id: int, price_per_day: int, reservationSchema: Rese
     db.add(db_reservation)
     db.commit()
     db.refresh(db_reservation)
+    return db_reservation
+
+def delete_reservation(db_reservation, db: Session):
+    db.delete(db_reservation)
+    db.commit()
     return db_reservation
 
 def is_the_property_reserved(publication_id: int, start_date: datetime, end_date: datetime, db: Session):

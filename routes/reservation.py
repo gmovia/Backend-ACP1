@@ -12,3 +12,9 @@ reservation = APIRouter()
 @reservation.post('/reserve/', status_code=200)
 def reserve(reservationSchema: ReservationSchema, db: Session = Depends(get_db)):
     return reservationController.reserve(reservationSchema, db)
+
+@reservation.delete('/deleteReservation/', status_code=200)
+def delete_reservation(email_user: str, reservation_id: int, db: Session = Depends(get_db)):
+    return reservationController.delete(email_user, reservation_id, db)
+
+@reservation.post('//')
