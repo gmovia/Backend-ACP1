@@ -17,4 +17,6 @@ def reserve(reservationSchema: ReservationSchema, db: Session = Depends(get_db))
 def delete_reservation(email_user: str, reservation_id: int, db: Session = Depends(get_db)):
     return reservationController.delete(email_user, reservation_id, db)
 
-@reservation.post('//')
+@reservation.post('/fetchAllUserReservations/', status_code=200)
+def fetch_all_user_reservation(email_user: str, db: Session = Depends(get_db)):
+    return reservationController.fetch_by_user(email_user, db)

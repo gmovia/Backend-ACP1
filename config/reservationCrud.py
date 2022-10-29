@@ -6,6 +6,9 @@ from datetime import datetime, timedelta
 def get_reservation(reservation_id: int, db: Session):
     return db.query(Reservation).filter(Reservation.id == reservation_id).first()
 
+def get_reservations_by_user_id(user_id: int, db: Session):
+    return db.query(Reservation).filter(Reservation.user_id == user_id).all()
+
 def create_reservation(user_id: int, price_per_day: int, reservationSchema: ReservationSchema, db: Session):
     db_reservation = Reservation(
                                     start_date=reservationSchema.start_date,

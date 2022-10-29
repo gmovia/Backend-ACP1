@@ -33,3 +33,11 @@ def delete(email_user: str, reservation_id: int, db: Session):
         raise HTTPException(status_code=400, detail="Permission denied.")
 
     return delete_reservation(db_reservation, db)
+
+def fetch_by_user(email_user, db: Session):
+    db_user = get_user(db, email_user)
+
+    if db_user is None:
+        raise HTTPException(status_code=400, detail="Permission denied.")
+
+    return get_reservations_by_user_id(db_user.id, db)
