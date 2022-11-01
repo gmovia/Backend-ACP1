@@ -1,7 +1,8 @@
 from sqlalchemy.orm import Session
-from schemas.publicationSchema import PublicationSchema
+from schemas.publicationSchema import PublicationFilter, PublicationSchema
 from models.publication import Publication
 from models.propertie import Property
+from models.user import User
 
 def get_publication(db: Session, publication_id: int):
     return db.query(Publication).filter(Publication.id == publication_id).first()
@@ -12,8 +13,11 @@ def get_publications_by_property_id(db: Session, property_id: int):
 def get_publications_by_user_id(db: Session, user_id: int):
     return db.query(Publication, Property).filter(Publication.property_id == Property.id).filter(Property.user_id == user_id).all()
 
-def get_publications(db: Session, offset: int, limit: int):
-    return db.query(Publication, Property).filter(Publication.property_id == Property.id).limit(limit).offset(limit * offset).all()
+def get_publications(db: Session, filter: PublicationFilter, offset: int, limit: int):
+    query = db.query(Publication, Property).filter(Publication.property_id == Property.id)
+    if filter.email_user is not None:
+        query = query.join(User).filter(User.email != filter.email_user)
+    return query.limit(limit).offset(limit * offset).all()
 
 def create_publication(db: Session, publicationSchema: PublicationSchema):
     db_publication = Publication(

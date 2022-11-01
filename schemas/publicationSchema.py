@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import Optional
 
 class PublicationSchema(BaseModel):
     title: str
@@ -10,3 +11,9 @@ class PublicationSchema(BaseModel):
     class Config:
         orm_mode = True
         
+
+class PublicationFilter(BaseModel):
+    email_user: Optional[str]
+    
+    class Config:
+        orm_mode = True

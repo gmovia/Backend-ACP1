@@ -1,5 +1,5 @@
 from fastapi import HTTPException
-from schemas.publicationSchema import PublicationSchema
+from schemas.publicationSchema import PublicationSchema, PublicationFilter
 from config.userCrud import *
 from config.propertyCrud import *
 from config.publicationCrud import *
@@ -55,5 +55,5 @@ def fetch_by_user(email_user: str, db: Session):
    return get_publications_by_user_id(db, db_user.id)
 
 
-def fetch_all(offset: int, limit: int, db: Session):
-   return get_publications(db, offset, limit)
+def fetch_all(filter: PublicationFilter, offset: int, limit: int, db: Session):
+   return get_publications(db, filter, offset, limit)
