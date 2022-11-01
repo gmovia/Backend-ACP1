@@ -11,6 +11,8 @@ class User(Base):
     password = Column(String)
     propertys = relationship("Property", back_populates="user")
     reservations = relationship("Reservation", back_populates="user")
+    reviews = relationship("Review", back_populates="user",
+                               cascade="all, delete, delete-orphan")
     name = Column(String)
     bio = Column(String)
     ocupation = Column(String)

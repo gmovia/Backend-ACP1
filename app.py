@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from routes.review import review
 from routes.access import access
 from routes.property import propertie
 from routes.publication import publication
@@ -33,3 +34,4 @@ app.include_router(publication)
 app.include_router(user)
 app.include_router(image)
 app.include_router(reservation)
+app.include_router(review)
