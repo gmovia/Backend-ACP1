@@ -26,7 +26,7 @@ class PropertySchema(BaseModel):
 
 
 class PropertySchemaOut(BaseModel):
-    id: str
+    id: int
     direction: str
     province: str
     location: str
@@ -35,7 +35,6 @@ class PropertySchemaOut(BaseModel):
     rooms: int
     people: int
     description: str
-    images: List[Image]
 
     class Config:
         orm_mode = True
