@@ -1,4 +1,5 @@
 from fastapi import APIRouter, Depends
+from fastapi.param_functions import Path
 from schemas.publicationSchema import PublicationSchema
 from sqlalchemy.orm import Session
 from controller import publicationController
@@ -24,3 +25,7 @@ def delete_publication(publication_id: int, email_user: str, db: Session = Depen
 @publication.post('/fetchAllUserPublications/', status_code=200)
 def fetch_all_user_publications(email_user: str, db: Session = Depends(get_db)):
     return publicationController.fetch_by_user(email_user, db)
+
+@publication.get('/publications/', status_code=200)
+def fetch_all_publications(offset: int = 0, limit: int = 10, db: Session = Depends(get_db)):
+    return publicationController.fetch_all(offset, limit, db)

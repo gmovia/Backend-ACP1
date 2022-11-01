@@ -12,6 +12,9 @@ def get_publications_by_property_id(db: Session, property_id: int):
 def get_publications_by_user_id(db: Session, user_id: int):
     return db.query(Publication, Property).filter(Publication.property_id == Property.id).filter(Property.user_id == user_id).all()
 
+def get_publications(db: Session, offset: int, limit: int):
+    return db.query(Publication, Property).filter(Publication.property_id == Property.id).limit(limit).offset(limit * offset).all()
+
 def create_publication(db: Session, publicationSchema: PublicationSchema):
     db_publication = Publication(
                                     title=publicationSchema.title,

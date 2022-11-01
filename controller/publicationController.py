@@ -53,3 +53,7 @@ def fetch_by_user(email_user: str, db: Session):
       raise HTTPException(status_code=400, detail="User not exist.")
 
    return get_publications_by_user_id(db, db_user.id)
+
+
+def fetch_all(offset: int, limit: int, db: Session):
+   return get_publications(db, offset, limit)
