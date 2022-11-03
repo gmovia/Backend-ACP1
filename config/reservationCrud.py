@@ -9,6 +9,15 @@ def get_reservation(reservation_id: int, db: Session):
 def get_reservations_by_user_id(user_id: int, db: Session):
     return db.query(Reservation).filter(Reservation.user_id == user_id).all()
 
+def get_reserved_days_by_date_range(start_date: datetime, end_date: datetime, publication_id: int, db: Session):
+    days_list = [(start_date + timedelta(days=d)).strftime("%Y-%m-%d") for d in range((end_date - start_date).days + 1)] 
+    days_reserved = []
+    for i in days_list:
+        is_reserved = db.query(Reservation).filter(Reservation.publication_id == publication_id).filter(Reservation.start_date <= i).filter(i <= Reservation.end_date).first()
+        if is_reserved is not None:
+            days_reserved.append(i)
+    return days_reserved
+
 def create_reservation(user_id: int, price_per_day: int, reservationSchema: ReservationSchema, db: Session):
     db_reservation = Reservation(
                                     start_date=reservationSchema.start_date,

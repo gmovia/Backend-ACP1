@@ -2,7 +2,7 @@ from fastapi import HTTPException
 from config.userCrud import get_user
 from config.publicationCrud import get_publication
 from config.reservationCrud import *
-from schemas.reservationSchema import ReservationSchema
+from schemas.reservationSchema import *
 from sqlalchemy.orm import Session
 
 def reserve(reservationSchema: ReservationSchema, db: Session):
@@ -41,3 +41,16 @@ def fetch_by_user(email_user, db: Session):
         raise HTTPException(status_code=400, detail="Permission denied.")
 
     return get_reservations_by_user_id(db_user.id, db)
+
+def fetch_reserved_days_by_date_range(query: ReservationSchema, db: Session):
+    db_user = get_user(db, query.email_user)
+
+    if db_user is None:
+        raise HTTPException(status_code=400, detail="Permission denied.")
+
+    db_publication = get_publication(db, query.publication_id)
+    
+    if db_publication is None:
+       raise HTTPException(status_code=400, detail="Permission denied.")
+
+    return get_reserved_days_by_date_range(query.start_date, query.end_date, query.publication_id, db)
