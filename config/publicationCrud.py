@@ -14,7 +14,8 @@ def get_publications_by_user_id(db: Session, user_id: int):
     return db.query(Publication, Property).filter(Publication.property_id == Property.id).filter(Property.user_id == user_id).all()
 
 def get_publications(db: Session, filter: PublicationFilter, offset: int, limit: int):
-    query = db.query(Publication, Property).filter(Publication.property_id == Property.id)
+    user_db = db.query(User).filter(User.email == filter.email_user).first() 
+    query = db.query(Publication, Property).filter(Publication.property_id == Property.id).filter(Property.user_id != user_db.id)
     if filter.email_user is not None:
         query = query.join(User).filter(User.email != filter.email_user)
     return query.limit(limit).offset(limit * offset).all()
