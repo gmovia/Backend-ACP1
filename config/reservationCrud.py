@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
 from schemas.reservationSchema import ReservationSchema
 from models.reservation import Reservation
+from models.publication import Publication
+from models.propertie import Property
 from datetime import datetime, timedelta
 
 def get_reservation(reservation_id: int, db: Session):
@@ -8,6 +10,9 @@ def get_reservation(reservation_id: int, db: Session):
 
 def get_reservations_by_user_id(user_id: int, db: Session):
     return db.query(Reservation).filter(Reservation.user_id == user_id).all()
+
+def get_reservations_from_owner(user_id: int, db: Session):
+    return db.query(Property, Publication, Reservation).filter(Reservation.publication_id == Publication.id).filter(Publication.property_id == Property.id).filter(Property.user_id == user_id).all()
 
 def get_reserved_days_by_date_range(start_date: datetime, end_date: datetime, publication_id: int, db: Session):
     days_list = [(start_date + timedelta(days=d)).strftime("%Y-%m-%d") for d in range((end_date - start_date).days + 1)] 

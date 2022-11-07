@@ -54,3 +54,11 @@ def fetch_reserved_days_by_date_range(query: ReservationSchema, db: Session):
        raise HTTPException(status_code=400, detail="Permission denied.")
 
     return get_reserved_days_by_date_range(query.start_date, query.end_date, query.publication_id, db)
+
+def fetch_all_owner_reservation(email_user: str, db: Session):
+    db_user = get_user(db, email_user)
+
+    if db_user is None:
+        raise HTTPException(status_code=400, detail="Permission denied.")
+    
+    return get_reservations_from_owner(db_user.id, db)
