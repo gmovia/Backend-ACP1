@@ -69,5 +69,5 @@ def fetch_publication_by_id(email_user: str, publication_id: int, db: Session):
    if db_publication is None:
         raise HTTPException(status_code=400, detail="Publication not exist.")
 
-   return get_publication(db, publication_id) 
+   return get_publication_and_property(db, publication_id) 
     
