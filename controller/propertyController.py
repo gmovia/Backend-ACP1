@@ -8,7 +8,7 @@ def create(propertySchema: PropertySchema, db: Session):
    db_user = get_user(db, propertySchema.email_user)
     
    if db_user is None:
-        raise HTTPException(status_code=400, detail="Permission denied.")
+        raise HTTPException(status_code=400, detail="User not exist.")
 
    return create_property(db, propertySchema, db_user.id)
 
@@ -17,7 +17,7 @@ def delete(property_id: int, email_user: str, db: Session):
    db_user = get_user(db, email_user)
 
    if db_user is None:
-      raise HTTPException(status_code=400, detail="Permission denied.")
+      raise HTTPException(status_code=400, detail="User not exist.")
 
    db_property = get_property(db, property_id)
 
@@ -31,7 +31,7 @@ def update(property_id: int, propertySchema: PropertySchema, db: Session):
    db_user = get_user(db, propertySchema.email_user)
 
    if db_user is None:
-      raise HTTPException(status_code=400, detail="Permission denied.")
+      raise HTTPException(status_code=400, detail="User not exist.")
 
    db_property = get_property(db, property_id)
 

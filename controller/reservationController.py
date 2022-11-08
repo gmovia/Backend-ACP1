@@ -9,7 +9,7 @@ def reserve(reservationSchema: ReservationSchema, db: Session):
     db_user = get_user(db, reservationSchema.email_user)
 
     if db_user is None:
-        raise HTTPException(status_code=400, detail="Permission denied.")
+        raise HTTPException(status_code=400, detail="User not exist.")
     
     db_publication = get_publication(db, reservationSchema.publication_id)
     
@@ -25,7 +25,7 @@ def delete(email_user: str, reservation_id: int, db: Session):
     db_user = get_user(db, email_user)
 
     if db_user is None:
-        raise HTTPException(status_code=400, detail="Permission denied.")
+        raise HTTPException(status_code=400, detail="User not exist.")
 
     db_reservation = get_reservation(reservation_id, db)
 
@@ -38,7 +38,7 @@ def fetch_by_user(email_user, db: Session):
     db_user = get_user(db, email_user)
 
     if db_user is None:
-        raise HTTPException(status_code=400, detail="Permission denied.")
+        raise HTTPException(status_code=400, detail="User not exist.")
 
     return get_reservations_by_user_id(db_user.id, db)
 
@@ -46,7 +46,7 @@ def fetch_reserved_days_by_date_range(query: ReservationSchema, db: Session):
     db_user = get_user(db, query.email_user)
 
     if db_user is None:
-        raise HTTPException(status_code=400, detail="Permission denied.")
+        raise HTTPException(status_code=400, detail="User not exist.")
 
     db_publication = get_publication(db, query.publication_id)
     
@@ -59,7 +59,7 @@ def fetch_all_owner_reservation(email_user: str, db: Session):
     db_user = get_user(db, email_user)
 
     if db_user is None:
-        raise HTTPException(status_code=400, detail="Permission denied.")
+        raise HTTPException(status_code=400, detail="User not exist.")
     
     return get_reservations_from_owner(db_user.id, db)
 
@@ -67,7 +67,7 @@ def get_reservation_status(email_user: str, publication_id: int, db: Session):
     db_user = get_user(db, email_user)
 
     if db_user is None:
-        raise HTTPException(status_code=400, detail="Permission denied.")
+        raise HTTPException(status_code=400, detail="User not exist.")
 
     db_publication = get_publication(db, publication_id)
     

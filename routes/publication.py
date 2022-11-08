@@ -29,3 +29,7 @@ def fetch_all_user_publications(email_user: str, db: Session = Depends(get_db)):
 @publication.post('/publications/', status_code=200)
 def fetch_all_publications(filter: PublicationFilter, offset: int = 0, limit: int = 10, db: Session = Depends(get_db)):
     return publicationController.fetch_all(filter, offset, limit, db)
+
+@publication.post('/getPublicationById/', status_code=200)
+def get_publication_by_id(email_user: str, publication_id: int, db: Session = Depends(get_db)):
+    return publicationController.fetch_publication_by_id(email_user, publication_id, db)

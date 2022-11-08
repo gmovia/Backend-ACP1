@@ -9,7 +9,7 @@ def create(publicationSchema: PublicationSchema, db: Session):
     db_user = get_user(db, publicationSchema.email_user)
     
     if db_user is None:
-        raise HTTPException(status_code=400, detail="Permission denied.")
+        raise HTTPException(status_code=400, detail="User not exist.")
     
     db_property = get_property(db, publicationSchema.property_id)
 
@@ -22,7 +22,7 @@ def delete(publication_id: int, email_user: str, db: Session):
     db_user = get_user(db, email_user)
 
     if db_user is None:
-        raise HTTPException(status_code=400, detail="Permission denied.")
+        raise HTTPException(status_code=400, detail="User not exist.")
 
     db_publication = get_publication(db, publication_id)
     db_property = get_property(db, db_publication.property_id)
@@ -36,7 +36,7 @@ def update(publication_id, publicationSchema: PublicationSchema, db: Session):
     db_user = get_user(db, publicationSchema.email_user)
 
     if db_user is None:
-        raise HTTPException(status_code=400, detail="Permission denied.")
+        raise HTTPException(status_code=400, detail="User not exist.")
 
     db_publication = get_publication(db, publication_id)
     db_property = get_property(db, db_publication.property_id)
@@ -57,3 +57,17 @@ def fetch_by_user(email_user: str, db: Session):
 
 def fetch_all(filter: PublicationFilter, offset: int, limit: int, db: Session):
    return get_publications(db, filter, offset, limit)
+
+def fetch_publication_by_id(email_user: str, publication_id: int, db: Session):
+   db_user = get_user(db, email_user)
+
+   if db_user is None:
+        raise HTTPException(status_code=400, detail="User not exist.")
+
+   db_publication = get_publication(db, publication_id)
+
+   if db_publication is None:
+        raise HTTPException(status_code=400, detail="Publication not exist.")
+
+   return get_publication(db, publication_id) 
+    
