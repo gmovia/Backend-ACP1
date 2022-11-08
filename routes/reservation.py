@@ -25,6 +25,10 @@ def fetch_all_user_reservation(email_user: str, db: Session = Depends(get_db)):
 def fetch_all_owner_reservation(email_user: str, db: Session = Depends(get_db)):
     return reservationController.fetch_all_owner_reservation(email_user, db)
 
-@reservation.post('/getReservedDaysByDateRange/')
+@reservation.post('/getReservedDaysByDateRange/', status_code=200)
 def get_reserved_days_by_date_range(query: ReservationSchema, db: Session = Depends(get_db)):
     return reservationController.fetch_reserved_days_by_date_range(query, db)
+
+@reservation.post('/reservationStatus/', status_code=200)
+def get_reservation_status(email_user: str, publication_id: int, db: Session = Depends(get_db)):
+    return reservationController.get_reservation_status(email_user, publication_id, db)

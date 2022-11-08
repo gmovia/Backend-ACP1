@@ -14,6 +14,9 @@ def get_reservations_by_user_id(user_id: int, db: Session):
 def get_reservations_from_owner(user_id: int, db: Session):
     return db.query(Property, Publication, Reservation).filter(Reservation.publication_id == Publication.id).filter(Publication.property_id == Property.id).filter(Property.user_id == user_id).all()
 
+def have_at_least_one_reservation(publication_id: int, db: Session):
+    return db.query(Reservation).filter(Reservation.publication_id == publication_id).first()
+
 def get_reserved_days_by_date_range(start_date: datetime, end_date: datetime, publication_id: int, db: Session):
     days_list = [(start_date + timedelta(days=d)).strftime("%Y-%m-%d") for d in range((end_date - start_date).days + 1)] 
     days_reserved = []

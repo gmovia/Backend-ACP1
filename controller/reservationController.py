@@ -62,3 +62,16 @@ def fetch_all_owner_reservation(email_user: str, db: Session):
         raise HTTPException(status_code=400, detail="Permission denied.")
     
     return get_reservations_from_owner(db_user.id, db)
+
+def get_reservation_status(email_user: str, publication_id: int, db: Session):
+    db_user = get_user(db, email_user)
+
+    if db_user is None:
+        raise HTTPException(status_code=400, detail="Permission denied.")
+
+    db_publication = get_publication(db, publication_id)
+    
+    if db_publication is None:
+       raise HTTPException(status_code=400, detail="Permission denied.")
+
+    return have_at_least_one_reservation(publication_id, db) is not None
