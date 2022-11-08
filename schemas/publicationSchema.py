@@ -14,6 +14,13 @@ class PublicationSchema(BaseModel):
 
 class PublicationFilter(BaseModel):
     email_user: Optional[str]
+    price_max: Optional[int]
+    price_min: Optional[int]
+    rating: Optional[float]
+    people: Optional[int]
+    country: Optional[str]
+    province: Optional[str]
+    location: Optional[str]
     
     class Config:
         orm_mode = True
