@@ -2,6 +2,7 @@ from fastapi import HTTPException
 from config.userCrud import get_user
 from config.publicationCrud import get_publication
 from config.reservationCrud import *
+from config.propertyCrud import *
 from schemas.reservationSchema import *
 from sqlalchemy.orm import Session
 
@@ -62,6 +63,14 @@ def fetch_all_owner_reservation(email_user: str, db: Session):
         raise HTTPException(status_code=400, detail="User not exist.")
     
     return get_reservations_from_owner(db_user.id, db)
+
+def fetch_all_reservations_from_property(property_id: int, db: Session):
+    db_property = get_property(db, property_id)
+    
+    if db_property is None:
+       raise HTTPException(status_code=400, detail="Property not exist.")
+
+    return get_reservations_from_property(property_id, db)
 
 def get_reservation_status(email_user: str, publication_id: int, db: Session):
     db_user = get_user(db, email_user)

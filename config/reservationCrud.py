@@ -2,11 +2,15 @@ from sqlalchemy.orm import Session
 from schemas.reservationSchema import ReservationSchema
 from models.reservation import Reservation
 from models.publication import Publication
+from models.user import User
 from models.propertie import Property
 from datetime import datetime, timedelta
 
 def get_reservation(reservation_id: int, db: Session):
     return db.query(Reservation).filter(Reservation.id == reservation_id).first()
+
+def get_reservations_from_property(property_id: id, db: Session):
+    return db.query(Reservation, User.email, User.name).join(Publication).filter(Publication.property_id == property_id).filter(Publication.id == Reservation.publication_id).filter(User.id == Reservation.user_id).all()
 
 def get_reservations_by_user_id(user_id: int, db: Session):
     return db.query(Reservation).filter(Reservation.user_id == user_id).all()
