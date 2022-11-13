@@ -34,5 +34,5 @@ def get_reserved_days_by_date_range(query: ReservationSchema, db: Session = Depe
     return reservationController.fetch_reserved_days_by_date_range(query, db)
 
 @reservation.post('/reservationStatus/', status_code=200)
-def get_reservation_status(email_user: str, publication_id: int, db: Session = Depends(get_db)):
-    return reservationController.get_reservation_status(email_user, publication_id, db)
+def get_reservation_status(publication_id: int, db: Session = Depends(get_db)):
+    return reservationController.get_reservation_status(publication_id, db)

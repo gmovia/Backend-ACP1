@@ -72,12 +72,7 @@ def fetch_all_reservations_from_property(property_id: int, db: Session):
 
     return get_reservations_from_property(property_id, db)
 
-def get_reservation_status(email_user: str, publication_id: int, db: Session):
-    db_user = get_user(db, email_user)
-
-    if db_user is None:
-        raise HTTPException(status_code=400, detail="User not exist.")
-
+def get_reservation_status(publication_id: int, db: Session):
     db_publication = get_publication(db, publication_id)
     
     if db_publication is None:
