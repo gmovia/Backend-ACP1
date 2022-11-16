@@ -86,7 +86,7 @@ def payReservation(reservation_id: int, db: Session):
     """if db_user is None:
         raise HTTPException(status_code=400, detail="User not exist.")"""
     
-    db_reservation = get_reservation(db, reservation_id)
+    db_reservation = get_reservation(reservation_id, db)
     
     if db_reservation is None:
        raise HTTPException(status_code=400, detail="Permission denied.")
