@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Date
+from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, Date
 from sqlalchemy.orm import relationship
 from config.db import Base
 
@@ -12,4 +12,5 @@ class Reservation(Base):
     end_date = Column(Date)
     price = Column(Integer)
     publication = relationship("Publication", back_populates="reservations")
+    paid = Column(Boolean)
     user = relationship("User", back_populates="reservations")

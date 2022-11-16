@@ -79,3 +79,19 @@ def get_reservation_status(publication_id: int, db: Session):
        raise HTTPException(status_code=400, detail="Permission denied.")
 
     return have_at_least_one_reservation(publication_id, db) is not None
+    
+def payReservation(reservation_id: int, db: Session):
+    """db_user = get_user(db, reservationSchema.email_user)"""
+
+    if db_user is None:
+        raise HTTPException(status_code=400, detail="User not exist.")
+    
+    db_reservation = get_reservation(db, reservation_id)
+    
+    if db_reservation is None:
+       raise HTTPException(status_code=400, detail="Permission denied.")
+
+    db_reservation = pay_reservation(reservation_id, db)
+
+    return db_reservation
+    

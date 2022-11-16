@@ -6,6 +6,7 @@ class ReservationSchema(BaseModel):
     end_date: date
     email_user: str
     publication_id: int
+    paid: bool
 
     class Config:
         orm_mode = True

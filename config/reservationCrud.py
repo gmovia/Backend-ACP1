@@ -36,7 +36,8 @@ def create_reservation(user_id: int, price_per_day: int, reservationSchema: Rese
                                     end_date=reservationSchema.end_date,
                                     price=price_per_day*((reservationSchema.end_date-reservationSchema.start_date).days),
                                     publication_id=reservationSchema.publication_id,
-                                    user_id=user_id
+                                    user_id=user_id,
+                                    paid=False
                                 )
     db.add(db_reservation)
     db.commit()
@@ -55,3 +56,10 @@ def is_the_property_reserved(publication_id: int, start_date: datetime, end_date
         if is_reserved is not None:
             return True
     return False
+    
+def pay_reservation(reservation_id: int, db: Session):
+    db_reservation = get_reservation(reservation_id, db)    
+    db_reservation.paid = True
+    db.add(db_reservation)
+    db.commit()
+    return db_reservation 
