@@ -40,4 +40,4 @@ def get_reservation_status(publication_id: int, db: Session = Depends(get_db)):
 
 @reservation.post('/payReservation/', status_code=200)
 def payReservation(reservation_id: int, db: Session = Depends(get_db)):
-    return reservationController.payReservation(reservationSchema, db)    
+    return reservationController.payReservation(reservation_id, db)    

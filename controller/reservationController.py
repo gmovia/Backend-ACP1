@@ -83,8 +83,8 @@ def get_reservation_status(publication_id: int, db: Session):
 def payReservation(reservation_id: int, db: Session):
     """db_user = get_user(db, reservationSchema.email_user)"""
 
-    if db_user is None:
-        raise HTTPException(status_code=400, detail="User not exist.")
+    """if db_user is None:
+        raise HTTPException(status_code=400, detail="User not exist.")"""
     
     db_reservation = get_reservation(db, reservation_id)
     
