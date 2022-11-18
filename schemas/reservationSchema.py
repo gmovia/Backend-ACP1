@@ -10,3 +10,11 @@ class ReservationSchema(BaseModel):
 
     class Config:
         orm_mode = True
+
+class ReservationSchemaByDateRange(BaseModel):
+    start_date: date
+    end_date: date
+    publication_id: int
+
+    class Config:
+        orm_mode = True

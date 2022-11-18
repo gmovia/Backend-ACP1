@@ -30,7 +30,7 @@ def fetch_all_reservations_from_property(property_id: int, db: Session = Depends
     return reservationController.fetch_all_reservations_from_property(property_id, db)
 
 @reservation.post('/getReservedDaysByDateRange/', status_code=200)
-def get_reserved_days_by_date_range(query: ReservationSchema, db: Session = Depends(get_db)):
+def get_reserved_days_by_date_range(query: ReservationSchemaByDateRange, db: Session = Depends(get_db)):
     return reservationController.fetch_reserved_days_by_date_range(query, db)
 
 @reservation.post('/reservationStatus/', status_code=200)

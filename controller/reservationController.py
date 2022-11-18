@@ -43,12 +43,7 @@ def fetch_by_user(email_user, db: Session):
 
     return get_reservations_by_user_id(db_user.id, db)
 
-def fetch_reserved_days_by_date_range(query: ReservationSchema, db: Session):
-    db_user = get_user(db, query.email_user)
-
-    if db_user is None:
-        raise HTTPException(status_code=400, detail="User not exist.")
-
+def fetch_reserved_days_by_date_range(query: ReservationSchemaByDateRange, db: Session):
     db_publication = get_publication(db, query.publication_id)
     
     if db_publication is None:
