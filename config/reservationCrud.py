@@ -16,7 +16,7 @@ def get_reservations_by_user_id(user_id: int, db: Session):
     return db.query(Reservation).filter(Reservation.user_id == user_id).all()
 
 def get_reservations_from_owner(user_id: int, db: Session):
-    return db.query(Property, Publication, Reservation).filter(Reservation.publication_id == Publication.id).filter(Publication.property_id == Property.id).filter(Property.user_id == user_id).all()
+    return db.query(Property, Publication, Reservation, User.email).filter(Reservation.publication_id == Publication.id).filter(Publication.property_id == Property.id).filter(Property.user_id == user_id).filter(User.id == Reservation.user_id).all()
 
 def have_at_least_one_reservation(publication_id: int, db: Session):
     return db.query(Reservation).filter(Reservation.publication_id == publication_id).first()
