@@ -13,7 +13,7 @@ def get_reservations_from_property(property_id: id, db: Session):
     return db.query(Reservation, User.email, User.name).join(Publication).filter(Publication.property_id == property_id).filter(Publication.id == Reservation.publication_id).filter(User.id == Reservation.user_id).all()
 
 def get_reservations_by_user_id(user_id: int, db: Session):
-    return db.query(Reservation, User.email).filter(Reservation.user_id == user_id).filter(User.id == user_id).all()
+    return db.query(Reservation, Publication.title, User.email).filter(Reservation.user_id == user_id).filter(User.id == user_id).filter(Reservation.publication_id == Publication.id).all()
 
 def get_reservations_from_owner(user_id: int, db: Session):
     return db.query(Property, Publication, Reservation, User.email).filter(Reservation.publication_id == Publication.id).filter(Publication.property_id == Property.id).filter(Property.user_id == user_id).filter(User.id == Reservation.user_id).all()
