@@ -10,6 +10,9 @@ def get_review_by_user(db: Session, db_publication: Publication, user_id: int):
         Review.publication_id == db_publication.id).filter(
             Review.user_id == user_id).filter(User.id == user_id).first()
 
+def get_reviews_by_publication(db: Session, db_publication: Publication):
+    return db.query(Review, User.email).filter(Review.publication_id == db_publication.id).filter(Review.user_id == User.id).all()
+
 
 def put_review(db: Session, db_publication: Publication,
                reviewSchema: ReviewSchema, user_id: str):

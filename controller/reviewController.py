@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from config.userCrud import get_user
 from config.publicationCrud import get_publication
-from config.reviewCrud import put_review
+from config.reviewCrud import *
 from schemas.reviewSchema import ReviewSchema
 from sqlalchemy.orm import Session
 
@@ -24,4 +24,4 @@ def get_reviews(publication_id: int, db: Session):
    if db_publication is None:
       raise HTTPException(status_code=400, detail="Permission denied.")
 
-   return db_publication.reviews
+   return get_reviews_by_publication(db, db_publication)
