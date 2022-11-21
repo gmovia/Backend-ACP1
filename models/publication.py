@@ -17,3 +17,4 @@ class Publication(Base):
     reviews = relationship("Review",
                            back_populates="publication",
                            cascade="all, delete, delete-orphan")
+    questions = relationship("Question", back_populates="publications")

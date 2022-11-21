@@ -18,3 +18,5 @@ class User(Base):
     ocupation = Column(String)
     location = Column(String)
     pic = Column(String)
+
+    questions = relationship("Question", back_populates="user")

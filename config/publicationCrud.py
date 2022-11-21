@@ -61,6 +61,4 @@ def update_publication(db: Session, db_publication, publicationSchema: Publicati
     db.add(db_publication)
     db.commit()
     return db_publication
-
-
     
