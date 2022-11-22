@@ -6,6 +6,7 @@ from routes.publication import publication
 from routes.user import user
 from routes.image import image
 from routes.reservation import reservation
+from routes.recommendation import recommendation
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -35,3 +36,4 @@ app.include_router(user)
 app.include_router(image)
 app.include_router(reservation)
 app.include_router(review)
+app.include_router(recommendation)
