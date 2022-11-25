@@ -8,7 +8,7 @@ def get_publication(db: Session, publication_id: int):
     return db.query(Publication).filter(Publication.id == publication_id).first()
 
 def get_publication_and_property(db: Session, publication_id: int):
-    return db.query(Publication, Property).filter(Publication.id == publication_id).filter(Publication.property_id == Property.id).first()
+    return db.query(Publication, Property, User.email).filter(Publication.id == publication_id).filter(Publication.property_id == Property.id).filter(Property.user_id == User.id).first()
 
 def get_publications_by_property_id(db: Session, property_id: int):
     return db.query(Publication).filter(Publication.property_id == property_id).first()
