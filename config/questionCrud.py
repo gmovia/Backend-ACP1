@@ -5,11 +5,13 @@ from models.user import User
 from schemas.questionSchema import QuestionSchema, AnswerSchema
 from datetime import datetime
 
+def get_user(db: Session, email: str):
+    return db.query(User).filter(User.email == email).first()
 
 def add_question(db: Session, question: QuestionSchema):
     db_question = Question(
         publication_id=question.publication_id,
-        user_id=question.user_id,
+        user_id=get_user(db, question.user_email).id,
         question=question.question,
         question_datetime=datetime.now(),
         answer=None)

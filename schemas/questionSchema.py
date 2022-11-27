@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class QuestionSchema(BaseModel):
-    user_id: int
+    user_email: str
     publication_id: int
     question: str
 
